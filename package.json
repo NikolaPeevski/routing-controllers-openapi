@@ -15,7 +15,7 @@
   "license": "MIT",
   "scripts": {
     "clean": "rimraf coverage build",
-    "build": "yarn clean && tsc -p tsconfig.release.json",
+    "build": "yarn clean && yarn run tsc -p tsconfig.release.json",
     "format": "prettier --write {src,test}/**/*.ts",
     "test:format": "prettier --check {src,test}/**/*.ts",
     "lint": "tslint --project . src/**/*.ts",
