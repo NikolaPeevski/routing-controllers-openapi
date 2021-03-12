@@ -3,8 +3,7 @@ import * as _ from 'lodash'
 import * as oa from 'openapi3-ts'
 import * as pathToRegexp from 'path-to-regexp'
 import 'reflect-metadata'
-import { ParamMetadataArgs } from 'routing-controllers/metadata/args/ParamMetadataArgs'
-
+import { ParamMetadataArgs } from 'routing-controllers/types/metadata/args/ParamMetadataArgs'
 import { applyOpenAPIDecorator } from './decorators'
 import { IRoute } from './index'
 
@@ -321,9 +320,13 @@ function getParamSchema(
 
   const type = Reflect.getMetadata('design:paramtypes', object, method)[index]
   if (_.isFunction(type) && type.name === 'Array') {
-    const items = explicitType
-      ? { $ref: '#/components/schemas/' + explicitType.name }
-      : { type: 'object' }
+    let items
+    if (explicitType) {
+      items = { $ref: '#/components/schemas/' + explicitType.name }
+    } else {
+      const objType: oa.SchemaObject = { type: 'object' }
+      return { items: objType, type: 'array' }
+    }
     return { items, type: 'array' }
   }
   if (explicitType) {
