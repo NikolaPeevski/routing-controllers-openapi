@@ -19,7 +19,7 @@
     "format": "prettier --write {src,test}/**/*.ts",
     "test:format": "prettier --check {src,test}/**/*.ts",
     "lint": "tslint --project . src/**/*.ts",
-    "prepare": "yarn && install-self-peers -- --frozen-lockfile --ignore-scripts && yarn build",
+    "prepare": "yarn && yarn run install-self-peers -- --frozen-lockfile --ignore-scripts && yarn build",
     "send-coverage": "codecov -f coverage/*.json",
     "test": "jest --coverage",
     "test:watch": "jest --watch"
